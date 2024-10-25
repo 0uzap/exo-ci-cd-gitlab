@@ -31,7 +31,7 @@ unit-test:
   stage: test
   script:
     - npm test
-	
+
 release:
   stage: release
   when: manual
