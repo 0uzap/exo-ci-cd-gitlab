@@ -41,7 +41,7 @@ unit-test:
 E2E_test:
   stage: test
   script: 
-    -echo "HEllo E2E !"
+    - echo "HEllo E2E !"
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event" 
 
