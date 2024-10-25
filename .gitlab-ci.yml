@@ -16,7 +16,6 @@ stages:
   - release
   - deploy
 
-	
 install:
   stage: .pre
   script:
