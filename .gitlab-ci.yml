@@ -16,6 +16,12 @@ stages:
   - release
   - deploy
 
+
+.default_test_stage: &default_test_stage
+  <<: *default_test_stage
+  stage: test
+
+
 install:
   stage: .pre
   script:
@@ -30,16 +36,18 @@ lint:
     - if: '$CI_COMMIT_TAG == null
         && $CI_COMMIT_TITLE !~ /^chore: release/'
 
+
 variables:
   ENV_TARGET: "canary"
 
 only_canary:
   stage: validate
-  script:
-    - echo "Hello Only Canary !"
+  script: 
+    - echo "Welcome back Only Canary ! I had lost you my friend"
+
 
 unit-test:
-  stage: test
+  <<: *default_test_stage
   script:
     - npm test
   rules:
@@ -49,18 +57,17 @@ unit-test:
 integration-test:
   stage: test
   script:
-    - echo "Hello Integration !"
+    - echo "Welcome back too Integration, where have you been ??"
   needs:
     - job: unit-test
-  
 
 E2E_test:
-  stage: test
+  <<: *default_test_stage
   script: 
     - echo "HEllo E2E !"
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event" 
-  needs:
+  needs: 
     - job: integration-test
 
 release:
