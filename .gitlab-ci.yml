@@ -17,7 +17,7 @@ stages:
   - deploy
 
 .default_test_stage: &default_test_stage
-  <<: default_stage
+  <<: *default_stage
   stage: test
 
 
