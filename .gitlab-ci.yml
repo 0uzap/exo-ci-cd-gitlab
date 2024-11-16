@@ -52,12 +52,21 @@ unit-test:
     - if: '$CI_COMMIT_TAG == null
         && $CI_COMMIT_TITLE !~ /^chore: release/'   
 
+integration-test:
+  stage: test
+  script:
+    - echo "Welcome back too Integration, where have you been ??"
+  needs:
+    - job: unit-test
+
 E2E_test:
   <<: *default_test_stage
   script: 
     - echo "HEllo E2E !"
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event" 
+  needs: 
+    - job: integration-test
 
 release:
   stage: release
