@@ -17,9 +17,6 @@ stages:
   - deploy
 
 
-variables:
-  ENV_TARGET: "canary"
-
 .default_test_stage: &default_test_stage
   <<: *default_test_stage
   stage: test
@@ -39,10 +36,15 @@ lint:
     - if: '$CI_COMMIT_TAG == null
         && $CI_COMMIT_TITLE !~ /^chore: release/'
 
+
+variables:
+  ENV_TARGET: "canary"
+
 only_canary:
   stage: validate
   script: 
     - echo "Welcome back Only Canary ! I had lost you my friend"
+
 
 unit-test:
   <<: *default_test_stage
