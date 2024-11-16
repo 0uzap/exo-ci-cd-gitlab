@@ -16,6 +16,11 @@ stages:
   - release
   - deploy
 
+.default_test_stage: &default_test_stage
+  <<: default_stage
+  stage: test
+
+
 install:
   stage: .pre
   script:
@@ -31,7 +36,7 @@ lint:
         && $CI_COMMIT_TITLE !~ /^chore: release/'
 
 unit-test:
-  stage: test
+  <<: *default_test_stage
   script:
     - npm test
   rules:
@@ -39,7 +44,7 @@ unit-test:
         && $CI_COMMIT_TITLE !~ /^chore: release/'   
 
 E2E_test:
-  stage: test
+  <<: *default_test_stage
   script: 
     - echo "HEllo E2E !"
   rules:
